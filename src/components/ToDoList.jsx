@@ -1,29 +1,25 @@
 import React, { useState } from 'react';
 
-
-const fruits = [
-    'banana',
-    'pineapple',
-    'peach',
-    'apple'
-];
-
-function FruitForm() {
+function ToDoList() {
     const [tasks,setTasks] = useState([]);
     const [text,setText] = useState('');
     const [selection,setSelection] = useState(false);
  
     function handleSubmit(event) {
         event.preventDefault();
-        setTasks(text==''?'Debe ingresar texto':
-        [...tasks,
-            {
-                task: text,
-                textDecoration: 'none',
-                checkbox: false
-            }
-        ]
-        );
+        if (text==''){
+            alert('Debe ingresar texto');
+        } else {
+            setTasks(
+                [...tasks,
+                    {
+                        task: text,
+                        textDecoration: 'none',
+                        checkbox: false
+                    }
+                ]
+            );
+        }
     }
 
     function handleTextChange(e) {
@@ -34,7 +30,6 @@ function FruitForm() {
         setTasks(
             tasks.filter((item,idx) => i!=idx)
         )
-
     }
 
     function handleCheckbox(e,i) {
@@ -48,12 +43,21 @@ function FruitForm() {
                     }
                 )
             }
-            else {
+            else if((i==idx)&&(item.checkbox==true)) {
                 return(
                     {
                         task: item.task,
                         textDecoration: 'none',
                         checkbox: false
+                    }
+                )
+            }
+            else {
+                return(
+                    {
+                        task: item.task,
+                        textDecoration: item.textDecoration,
+                        checkbox: item.checkbox
                     }
                 )
             }
@@ -83,4 +87,4 @@ function FruitForm() {
 }
 
 
-export default FruitForm
+export default ToDoList
